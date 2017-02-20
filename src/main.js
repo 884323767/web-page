@@ -18,7 +18,7 @@ import portfolio from './components/Portfolio.vue'
 import summary from './components/Summary.vue'
 import register from './components/Register.vue'
 import test from './components/test.vue'
-import './sass/resetCss.scss'
+// import './sass/resetCss.scss'
 
 // 创建一个路由器实例
 // 并且配置路由规则

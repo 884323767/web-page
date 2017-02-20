@@ -1,6 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
-  ExtractTextPlugin = require('extract-text-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
     plugins: [
@@ -35,7 +35,7 @@ module.exports = {
             loader: "style!css-loader"
         },{
             test: /\.scss$/,
-            loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+            loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
         },{
             test: /\.(png|jpg|gif|svg)$/,
             loader: 'file-loader',
