@@ -38,7 +38,7 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="css">
-.login{
+.register{
     height: 100%;
     width: 500px;
 }

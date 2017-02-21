@@ -12,12 +12,12 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 // 定义组件, 也可以像教程之前教的方法从别的文件引入
-const First = { template: '<div><h2>我是第 1 个子页面</h2></div>' }
 import login from './components/Login.vue'
 import portfolio from './components/Portfolio.vue'
 import summary from './components/Summary.vue'
 import register from './components/Register.vue'
 import test from './components/test.vue'
+import First from './components/First.vue'
 // import './sass/resetCss.scss'
 
 // 创建一个路由器实例

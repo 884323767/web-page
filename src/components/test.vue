@@ -1,44 +1,38 @@
 <template>
-  <div class="semantic-component">
-  <div>test   test</div>
-    <div class="ui selection dropdown semanticDropDown">
-      <input type="hidden" name="gender" v-model="selected">
-      <i class="dropdown icon"></i>
-      <div class="default text">Gender</div>
-      <div class="menu">
-        <div class="item" :data-value="item.Value"
-             v-for="item in items"
-             @click="changeSelection(item)">
-          {{ item.Gender }}
-        </div>
-      </div>
+  <div>
+    <div>echarts</div>
+    <div id="charts">
+        <div id="main2"  :style="{width:'600px',height:'400px'}"></div>
     </div>
   </div>
 </template>
 
 <script >
-  export default {
-    data() {
-      return {
-        items       : [
-          {Gender: 'Male', Value: 1},
-          {Gender: 'Female', Value: 0}
-        ],
-        selected    : '',
-        selecteditem: {}
-      }
-    },
-    methods: {
-      changeSelection(item) {
-        this.selectedItem = item
-        this.selected = item.Value
-      }
-    },
-    mounted() {
-      this.selecteditem = {}
-      $(this.$el).find('.semanticDropDown').dropdown()
-    }
-  }
+import echarts from "echarts"
+export default{
+       data (){
+           return {
+               msg:"123"
+           }
+       },
+       mounted (){
+           var myChart = echarts.init(document.getElementById('main2'));
+           myChart.setOption({
+               title: { text: 'ECharts 入门示例' },
+               tooltip: {},
+               xAxis: {
+                   data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+               },
+               yAxis: {},
+               series: [{
+                   name: '销量',
+                   type: 'bar',
+                   data: [5, 20, 36, 10, 10, 20]
+               }]
+           });
+       }
+
+   }
 </script>
 
 <style></style>

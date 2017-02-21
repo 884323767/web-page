@@ -1,14 +1,69 @@
 <template>
     <div class="portfolio">
-        <h1>I am a portfolio page.</h1>
+      <div class="menu-group">
+        <div class="ui text menu">
+          <a href="/test" class="ui blue button logo">logo</a>
+          <a href="/Summary" class="item active">Summary</a>
+          <a href="/Transfer" class="item">Transfer</a>
+          <a href="/portfolio" class="item">Portfolio</a>
+          <a href="/performance" class="item ">Performance</a>
+        </div>
+      </div>
+        <div class="title">Portfolio</div>
+        <div class="main-container">
+          <div class="tab-header">
+              <selection :items="items" :defaultText="defaultText" :selected="selected"></selection>
+              <div class="label">Retirement Growth</div>
+          </div>
+          <ul class="balance-list">
+            <li class="items">
+              <div class="header_name">Traditional IRA</div>
+              <div class="money_num">$2,255.42</div>
+              <i class="question icon right"></i>
+            </li>
+            <li class="items">
+              <div class="header_name ">Retirement 2</div>
+              <div class="money_num orange">Too Conservative</div>
+              <i class="question icon right"></i>
+            </li>
+            <li class="items">
+              <div class="header_name">Retirement</div>
+              <div class="money_num">Normal <span class="label">0.7%</span></div>
+              <i class="question icon right"></i>
+            </li>
+          </ul>
+          <div class="content-container">
+            <div class="chart">
+              <div id="main" style="width:300px;height:300px;"></div>
+              <div class="ui inverted blue button">Adjust target allocation</div>
+            </div>
+            <div class="info">
+              <div class="title-list">
+                <div class="first">Holdings</div>
+                <div class="first">Current Weight</div>
+                <div class="second">Fund Fees per Year</div>
+                <div class="second">Current Value</div>
+              </div>
+              <div class="items-container" v-for="item in portData">
+                <div class="first">{{item.name}}</div>
+                <div class="first ">{{item.percentage}}
+                  <div class="graph-bar"></div>
+                </div>
+                <div class="second">{{item.money}}</div>
+                <div class="second">${{item.index}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
     <div>
 </template>
 
 <script>
-
+import selection from './widgets/Selection.vue'
+import echarts from "echarts"
 export default {
     components: {
-
+        selection
     },
     route: {
         data(transition) {
@@ -17,7 +72,79 @@ export default {
     },
     data() {
         return {
-            action: "登录",
+          items: [
+            {name: 'Traditional IRA', Value: 0},
+            {name: 'Retirement 2', Value: 1},
+            {name: 'Retirement', Value: 2}
+          ],
+          defaultText: '请选择',
+          selected: 'Retirement',
+          balanceData:[
+            {
+              name:'Traditional IRA',
+              value:'$2,255.42'
+            },
+            {
+              name:'Retirement 2',
+              value:'Too Conservative'
+            },
+            {
+              name:'Retirement',
+              value:'Normal 0.7%'
+            }
+          ],
+          portData: [
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"8.5%",
+                index:0
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"8.5%",
+                index:1
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"8.5%",
+                index:2
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"8.5%",
+                index:3
+            }
+          ],
+          bonsData: [
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"8.5%",
+                index:0
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"8.5%",
+                index:1
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"8.5%",
+                index:2
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"8.5%",
+                index:3
+            }
+          ]
         }
     },
     computed: {
@@ -31,15 +158,260 @@ export default {
             // this.showTips = true;
         }
     },
-    // ready() {
+  mounted() {
+      this.$nextTick(function () {
+        var  option = {
+                left: 'center',
+                series: [
+                    {
+                        type:'pie',
+                        radius: ['55%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            textStyle:{
+                              color:'#fff',
+                              fontSize:12
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: true
+                            }
+                        },
+                        data:[
 
-    // }
+                          {
+                            value:148,
+                             name:'',
+                             itemStyle: {
+                            normal: {
+                                  color: '#43547e'
+                              }
+                          }
+                        },
+                        {
+                          value:148,
+                           name:'',
+                           itemStyle: {
+                          normal: {
+                                color: '#27314b'
+                            }
+                        }
+                      },
+                      {
+                        value:148,
+                         name:'',
+                         itemStyle: {
+                        normal: {
+                              color: '#161c2c'
+                          }
+                      }
+                    },
+                    {
+                        value:400,
+                        name:'CURRENT',
+                        itemStyle: {
+                            normal: {
+                                color: '#7bd59d'
+                            }
+                        }
+                      },
+                      {
+                        value:310,
+                         name:'',
+                         itemStyle: {
+                          normal: {
+                              color: '#5ea87a'
+                          }
+                      }
+                    },
+                      {
+                        value:234,
+                         name:'',
+                         itemStyle: {
+                          normal: {
+                              color: '#396b4c'
+                          }
+                      }
+                    },
+                      {
+                        value:135,
+                         name:'',
+                         itemStyle: {
+                          normal: {
+                              color: '#244630'
+                          }
+                      }
+                    },
+                      {
+                        value:148,
+                         name:'',
+                         itemStyle: {
+                        normal: {
+                              color: '#839ee1'
+                          }
+                      }
+                    }
+                        ]
+                    }
+                ]
+                };
+        var myChart = echarts.init(document.getElementById('main'));
+       myChart.setOption(option);
+    });
+  }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="css">
-.login{
-    height: 100%;
-    width: 500px;
-}
+<style lang="scss">
+.portfolio{
+  .menu-group{
+    padding: 0 5em;
+    background-color: #17406B;
+    text-align: left;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    .ui.text.menu a{
+      color: #fff;
+      &.hover {
+        color: #90caf9;
+      }
+    }
+  }
+  .title {
+    display: block;
+    margin: 0 auto 35px;
+    color: #ffffff;
+    width: 100%;
+    padding: 1em 2em;
+    background-color: #17406B;
+    text-align: left;
+    font-size: 2rem;
+    }
+  }
+  .main-container{
+    max-width: 1200px;
+    padding: 0 2em 20px;
+    margin: 0px auto;
+    min-height: 830px;
+    position: relative;
+    .tab-header{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #ddd;
+      .label {
+        font-size: 1.4rem;
+        padding-top: 1.2rem;
+      }
+    }
+    .balance-list{
+      margin-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      .items {
+        background-color: #f9f9f9;
+        border-bottom-color: #dddddd;
+        overflow: visible;
+        width: 30%;
+        padding: 25px 20px;
+        color: #fff;
+        text-align: left;
+        margin: 0px;
+      }
+
+      .header_name{
+        position: relative;
+        margin-bottom: 10px;
+        color: #ccc;
+      }
+      .header_name::after{
+        position: absolute;
+        height: 6px;
+        width: 113%;
+        border-radius: 3px;
+        background-color: #ddd;
+        content:"\200B";
+        display:block;
+        top: 78px;
+        left: -19px;
+      }
+      .money_num{
+        font-size: 20px;
+        color: #333333;
+        margin-top: 10px;
+        &.orange {
+          color: #fb7c00;
+        }
+        .label {
+          color: #999;
+        }
+      }
+      .right{
+        top: -20px;
+        float: right;
+        position: relative;
+      }
+    }
+    .content-container{
+      display: flex;
+      justify-content: space-between;
+      padding-top: 30px;
+      .chart{
+        border-top: 1px solid #ddd;
+      }
+      .info{
+        flex: 1;
+        padding-left: 80px;
+        .first{
+          flex:1.5;
+          text-align: left;
+        }
+        .second{
+          flex:1;
+          text-align: right;
+        }
+        .title-list{
+          display: flex;
+          align-items: center;
+          color: #333333;
+          font-size: 12px;
+          padding-bottom: 10px;
+          text-transform: uppercase;
+          border-bottom: 1px solid #ddd;
+        }
+        .items-container{
+          display: flex;
+          align-items: center;
+          line-height: 19px;
+          font-size: 16px;
+          font-weight: 500;
+          color: #686868;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid #ddd;
+          .graph-bar{
+            width: 20%;
+            background-color: #8bc5ff;
+            height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
 </style>

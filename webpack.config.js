@@ -23,7 +23,8 @@ module.exports = {
                     // other preprocessors should work out of the box, no loader config like this necessary.
                     'scss': 'vue-style-loader!css-loader!sass-loader',
                     'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-                }
+                },
+                postcss: [require('autoprefixer')({ browsers: ['last 10 Chrome versions', 'last 5 Firefox versions', 'Safari >= 6', 'ie > 8'] })]
                 // other vue-loader options go here
             }
         }, {
@@ -32,10 +33,10 @@ module.exports = {
             // exclude: /node_modules/
         },{
             test: /\.css$/,
-            loader: "style!css-loader"
+            loader: "style!css-loader!postcss-loader"
         },{
             test: /\.scss$/,
-            loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
+            loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!postcss-loader!sass-loader' })
         },{
             test: /\.(png|jpg|gif|svg)$/,
             loader: 'file-loader',
