@@ -2,11 +2,11 @@
     <div class="portfolio">
       <div class="menu-group">
         <div class="ui text menu">
-          <a href="/test" class="ui blue button logo">logo</a>
-          <a href="/Summary" class="item active">Summary</a>
-          <a href="/Transfer" class="item">Transfer</a>
-          <a href="/portfolio" class="item">Portfolio</a>
-          <a href="/performance" class="item ">Performance</a>
+          <a href="./test" class="ui blue button logo">logo</a>
+          <a href="./summary" class="item active">Summary</a>
+          <a href="./transfer" class="item">Transfer</a>
+          <a href="./portfolio" class="item">Portfolio</a>
+          <a href="./performance" class="item ">Performance</a>
         </div>
       </div>
         <div class="title">Portfolio</div>
@@ -46,8 +46,9 @@
               </div>
               <div class="items-container" v-for="item in portData">
                 <div class="first">{{item.name}}</div>
-                <div class="first ">{{item.percentage}}
-                  <div class="graph-bar"></div>
+                <div class="first ">
+                  <span class="percent">{{item.percentage}}</span>
+                  <div class="graph-bar" :style="{'width': item.percentage}"></div>
                 </div>
                 <div class="second">{{item.money}}</div>
                 <div class="second">${{item.index}}</div>
@@ -103,19 +104,19 @@ export default {
             {
                 name:"US Total Stock Market",
                 money:"$190.87",
-                percentage:"8.5%",
+                percentage:"18.5%",
                 index:1
             },
             {
                 name:"US Total Stock Market",
                 money:"$190.87",
-                percentage:"8.5%",
+                percentage:"28.5%",
                 index:2
             },
             {
                 name:"US Total Stock Market",
                 money:"$190.87",
-                percentage:"8.5%",
+                percentage:"38.5%",
                 index:3
             }
           ],
@@ -129,19 +130,19 @@ export default {
             {
                 name:"US Total Stock Market",
                 money:"$190.87",
-                percentage:"8.5%",
+                percentage:"18.5%",
                 index:1
             },
             {
                 name:"US Total Stock Market",
                 money:"$190.87",
-                percentage:"8.5%",
+                percentage:"28.5%",
                 index:2
             },
             {
                 name:"US Total Stock Market",
                 money:"$190.87",
-                percentage:"8.5%",
+                percentage:"38.5%",
                 index:3
             }
           ]
@@ -161,15 +162,20 @@ export default {
   mounted() {
       this.$nextTick(function () {
         var  option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
                 left: 'center',
                 series: [
                     {
+                        name:'详情',
                         type:'pie',
                         radius: ['55%', '70%'],
                         avoidLabelOverlap: false,
                         label: {
                             normal: {
-                                show: true,
+                                show: false,
                                 position: 'center'
                             },
                             emphasis: {
@@ -186,14 +192,14 @@ export default {
                         },
                         labelLine: {
                             normal: {
-                                show: true
+                                show: false
                             }
                         },
                         data:[
 
                           {
                             value:148,
-                             name:'',
+                             name:'港股',
                              itemStyle: {
                             normal: {
                                   color: '#43547e'
@@ -202,7 +208,7 @@ export default {
                         },
                         {
                           value:148,
-                           name:'',
+                           name:'美股',
                            itemStyle: {
                           normal: {
                                 color: '#27314b'
@@ -211,7 +217,7 @@ export default {
                       },
                       {
                         value:148,
-                         name:'',
+                         name:'沪深',
                          itemStyle: {
                         normal: {
                               color: '#161c2c'
@@ -220,7 +226,7 @@ export default {
                     },
                     {
                         value:400,
-                        name:'CURRENT',
+                        name:'基金',
                         itemStyle: {
                             normal: {
                                 color: '#7bd59d'
@@ -229,7 +235,7 @@ export default {
                       },
                       {
                         value:310,
-                         name:'',
+                         name:'理财',
                          itemStyle: {
                           normal: {
                               color: '#5ea87a'
@@ -238,7 +244,7 @@ export default {
                     },
                       {
                         value:234,
-                         name:'',
+                         name:'P2P',
                          itemStyle: {
                           normal: {
                               color: '#396b4c'
@@ -247,7 +253,7 @@ export default {
                     },
                       {
                         value:135,
-                         name:'',
+                         name:'ETF',
                          itemStyle: {
                           normal: {
                               color: '#244630'
@@ -256,7 +262,7 @@ export default {
                     },
                       {
                         value:148,
-                         name:'',
+                         name:'Other',
                          itemStyle: {
                         normal: {
                               color: '#839ee1'
@@ -403,6 +409,10 @@ export default {
           padding-top: 10px;
           padding-bottom: 10px;
           border-bottom: 1px solid #ddd;
+          .percent {
+            min-width: 3rem;
+            display: inline-block;
+          }
           .graph-bar{
             width: 20%;
             background-color: #8bc5ff;

@@ -45,13 +45,14 @@
     },
     methods: {
       changeSelection(item) {
-        this.selectedItem = item
+        // this.selectedItem = item
         // this.selected = item.Value
       }
     },
     mounted() {
-      this.selecteditem = {}
-      $(this.$el).find('.semanticDropDown').dropdown()
+      $('.ui.dropdown').dropdown();
+      // this.selecteditem = {}
+      // $(this.$el).find('.semanticDropDown').dropdown()
     }
   }
 </script>

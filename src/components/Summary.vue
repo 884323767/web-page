@@ -2,11 +2,11 @@
   <div class="summary">
     <div class="menu-group">
       <div class="ui text menu">
-        <a href="/test" class="ui blue button logo">logo</a>
-        <a href="/Summary" class="item active">Summary</a>
-        <a href="/Transfer" class="item">Transfer</a>
-        <a href="/portfolio" class="item">Portfolio</a>
-        <a href="/performance" class="item ">Performance</a>
+        <a href="./test" class="ui blue button logo">logo</a>
+        <a href="./summary" class="item active">Summary</a>
+        <a href="./transfer" class="item">Transfer</a>
+        <a href="./portfolio" class="item">Portfolio</a>
+        <a href="./performance" class="item ">Performance</a>
       </div>
     </div>
     <div class="summary-container">
@@ -17,7 +17,7 @@
             <h1 class="large-number">$2,256.25</h1>
           </div>
           <div>
-            <div class="ui blue button">Add Account</div>
+            <div class="ui blue button" @click="addAccount">Add Account</div>
             <div class="ui positive button">Transfer</div>
           </div>
         </div>
@@ -31,23 +31,37 @@
       </div>
     </div>
     <div class="items-container">
-      <div class="item">
-        <div class="title">Traditional IRA</div>
-        <div class="number">$2,256.25</div>
+      <div class="item" v-for="account in accountData">
+        <div class="title">{{account.type}}</div>
+        <div class="number">{{account.money}}</div>
         <div class="chart">
-          <div class="main" style="width:150px;height:150px;"></div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="title">Traditional IRA</div>
-        <div class="number">$2,256.25</div>
-        <div class="chart">
+          {{account.percent}}
           <div class="main" style="width:150px;height:150px;"></div>
         </div>
       </div>
     </div>
-
-
+    <div class="select-container" v-show="selectAccount">
+        <div class="top-container">
+<!--             <i class="icon close" @click="close"></i>
+ -->            <div class="label">Select an account type</div>
+        </div>
+        <div class="items-list">
+            <div class="item-container" v-for="account in accountType" @click="selectItem()">
+                <div class="title-container">
+                    <div class="title">
+                        {{account.type}}
+                    </div>
+                </div>
+                <!-- <div class="item">
+                    <div class="label">{{labels.transferOut.enableShares}}{{stock.shares}}{{labels.transferOut.stock}}</div>
+                    <i class="icon select" :class="{'active': stock.clicked}" ></i>
+                </div> -->
+            </div>
+        </div>
+        <div class="bottom-container">
+            <button class="ui blue button" @click="confirm">confirm</button>
+        </div>
+    </div>
   <div>
 </template>
 
@@ -76,83 +90,131 @@ export default {
           name:'Retirement',
           money_num:'$1.00'
         }
-      ]
+      ],
+      accountData: [
+        {
+          type:'Traditional IRA',
+          money:'$2,261.26',
+          percent:'41%'
+        },{
+          type:'Retirement',
+          money:'$1,111.26',
+          percent:'90%'
+        }
+      ],
+      accountType: [
+        {
+          type:'Traditional',
+        },
+        {
+          type:'Retirement',
+        },
+        {
+          type:'Rollover',
+        },
+        {
+          type:'IRA',
+        }
+      ],
+      selectAccount: false
     }
   },
   methods: {
-    changeSelection(item) {
-      this.selected = item.Value
+    addAccount() {
+      this.selectAccount = true;
+    },
+    selectItem() {
+
+    },
+    confirm(){
+      this.addAccountItem();
+      this.selectAccount = false;
+    },
+    finish(){
+
+    },
+    addAccountItem(item) {
+      this.accountData.push({
+        type:'Retirement',
+        money:'$1,111.26',
+        percent:'90%'});
+      this.$nextTick(function () {
+          this.drawChart();
+      });
+    },
+    drawChart() {
+      var option = {
+           tooltip : {
+               trigger: 'item',
+               formatter: "{a} <br/>{b} : {c} ({d}%)"
+           },
+           toolbox: {
+               show : false,
+               feature : {
+                   mark : {show: false},
+                   dataView : {show: false, readOnly: false},
+                   magicType : {
+                       show: false,
+                       type: ['pie', 'funnel'],
+                       option: {
+                           funnel: {
+                               x: '25%',
+                               width: '50%',
+                               funnelAlign: 'center',
+                               max: 1548
+                           }
+                       }
+                   },
+                   restore : {show: false},
+                   saveAsImage : {show: false}
+               }
+           },
+           calculable : false,
+           series : [
+               {
+                   name:'test',
+                   type:'pie',
+                   radius : ['50%', '70%'],
+                   itemStyle : {
+                       normal : {
+                           label : {
+                               show : false
+                           },
+                           labelLine : {
+                               show : false
+                           }
+                       },
+                       emphasis : {
+                           label : {
+                               show : true,
+                               position : 'center',
+                               textStyle : {
+                                   fontSize : '30',
+                                   fontWeight : 'bold'
+                               }
+                           }
+                       }
+                   },
+                   data:[
+                       {value:335, name:'01'},
+                       {value:310, name:'02'},
+                       {value:234, name:'03'},
+                       {value:135, name:'04'},
+                       {value:1548, name:'05'}
+                   ]
+               }
+           ]
+       };
+       var mainDom = $('.main');
+       for(var i=0;i<mainDom.length;i++){
+          var myChart = echarts.init(mainDom[i]);
+          myChart.setOption(option);
+       }
     }
   },
   mounted() {
       this.$nextTick(function () {
-       var option = {
-            tooltip : {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            toolbox: {
-                show : false,
-                feature : {
-                    mark : {show: false},
-                    dataView : {show: false, readOnly: false},
-                    magicType : {
-                        show: false,
-                        type: ['pie', 'funnel'],
-                        option: {
-                            funnel: {
-                                x: '25%',
-                                width: '50%',
-                                funnelAlign: 'center',
-                                max: 1548
-                            }
-                        }
-                    },
-                    restore : {show: false},
-                    saveAsImage : {show: false}
-                }
-            },
-            calculable : false,
-            series : [
-                {
-                    name:'test',
-                    type:'pie',
-                    radius : ['50%', '70%'],
-                    itemStyle : {
-                        normal : {
-                            label : {
-                                show : false
-                            },
-                            labelLine : {
-                                show : false
-                            }
-                        },
-                        emphasis : {
-                            label : {
-                                show : true,
-                                position : 'center',
-                                textStyle : {
-                                    fontSize : '30',
-                                    fontWeight : 'bold'
-                                }
-                            }
-                        }
-                    },
-                    data:[
-                        {value:335, name:'01'},
-                        {value:310, name:'02'},
-                        {value:234, name:'03'},
-                        {value:135, name:'04'},
-                        {value:1548, name:'05'}
-                    ]
-                }
-            ]
-        };
-        var mainDom = $('.main');
-        for(var i=0;i<mainDom.length;i++){
-           var myChart = echarts.init(mainDom[i]);
-           myChart.setOption(option);
-        }
+        this.drawChart();
     });
   }
 }
@@ -257,6 +319,88 @@ export default {
         line-height: 1.3;
       }
     }
+  }
+  .select-container{
+      position: absolute;
+      width: 80%;
+      left: 10%;
+      top: 200px;
+      background: #fff;
+      border: 1px solid #ddd;
+      .top-container {
+          height: 30px;
+          text-align: center;
+          position: relative;
+          .close {
+              position: absolute;
+              left: rem(22);
+              top: rem(22);
+              width: rem(60);
+              height: rem(60);
+              background-size: rem(44) rem(44);
+
+          }
+          .label {
+              line-height: 1;
+              color: #999;
+          }
+      }
+      .items-container {
+          background: #fff;
+          padding: 0 30px 60px;
+          overflow: auto;
+      }
+      .item-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 50px;
+          border-bottom: 1px solid #ddd;
+          .title-container {
+              line-height: 1;
+              .title {
+                  color: #333;
+              }
+              .subtitle {
+                  color: #868686;
+                  display: flex;
+                  align-items: center;
+                  span {
+                      display: inline-block;
+                      background: #E99A94;
+                      color: #fff;
+                  }
+              }
+          }
+          .item {
+              display: flex;
+              align-items: center;
+              line-height: 1;
+              .label {
+                  color: #999;
+                  display: inline-block;
+              }
+          }
+      }
+      .bottom-container {
+          position: relative;
+          bottom: 0;
+          height: 98px;
+          margin-top: 20px;
+          text-align: center;
+          .reset {
+              background: #fff;
+              color: #999;
+              &:active {
+                  background: #f0f0f0;
+              }
+          }
+          .finish {
+              color: #fff;
+              &:active {
+              }
+          }
+      }
   }
 }
 </style>

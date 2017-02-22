@@ -3,10 +3,10 @@
     <div class="top-container">
       <div class="image hikers show"></div>
       <div class="header">
-          <a href="/test" class="ui blue button logo">logo</a>
+          <a href="/login" class="ui blue button logo">logo</a>
           <div class="sign-up">
-              <a href="/test" class="ui blue button">Don't have an account?</a>
-              <a href="/test" class="ui teal button">Sign up</a>
+              <a href="/register" class="ui blue button">Don't have an account?</a>
+              <a href="/register" class="ui teal button">Sign up</a>
           </div>
       </div>
       <div class="main-content">
@@ -16,10 +16,10 @@
               <!-- <div class="ui left icon input"> -->
               <div class="ui form">
                 <p>Email</p>
-                <input type="text">
+                <input type="text" v-model="email">
                 <p>Password</p>
-                <input type="password">
-                <button class="ui blue button login-button">Login in</button>
+                <input type="password" v-model="password">
+                <button class="ui blue button login-button" @click="loginIn">Login in</button>
                 <a href="/test" class="forget">Forgot password?</a>
               </div>
           </div>
@@ -71,11 +71,13 @@
 </template>
 
 <script>
-
+import service from '../service.js'
+var timer;
 export default {
   components: {
 
   },
+  mixins: [service],
   route: {
     data(transition) {
 
@@ -84,6 +86,8 @@ export default {
   data() {
     return {
       action: "登录",
+      email: "",
+      password: ""
     }
   },
   computed: {
@@ -95,8 +99,72 @@ export default {
     tipsShow: function() {
       // clearTimeout(this.tipsFlag);
       // this.showTips = true;
+    },
+    loginIn: function() {
+      console.log(this.email);
+      console.log(this.password);
+      var data = {
+        where : {
+          email: this.email
+        }
+      }
+      console.log(data);
+      console.log(JSON.stringify(data));
+      clearTimeout(timer);
+      timer = setTimeout(()=>{
+        this.checkUser(encodeURI(JSON.stringify(data))).then(res => {
+            console.log(res);
+            var loginData = {
+              uid: res.uid,
+              password: this.password
+            }
+            this.login(loginData).then(res => {
+                // if(res.code === 0) {
+                //     var market = res.data.data.marketPostionGroup;
+                //     for(let i = 0; i < market.length; i++) {
+                //         if(market[i].marketCode == 'hk'){
+                //             for(let j = 0; j < market[i].position.length; j++) {
+                //                 if(market[i].position[j].enableVol > 0){
+                //                     this.stocks.push({
+                //                         "stock": market[i].position[j].stockName,
+                //                         "state": "HK",
+                //                         "code": market[i].position[j].stockCode,
+                //                         "shares": parseInt(market[i].position[j].enableVol),
+                //                         "select" : false,
+                //                         "clicked": false
+                //                     })
+                //                 }
+
+                //             }
+                //         }
+                //     }
+                // } else {
+                //     this.$dispatch('toast', this.labels.common.codeError);
+                // }
+                console.log(res);
+                location.href = "/portfolio";
+
+            }).catch(()=>{
+              alert("登录失败");
+                // this.$dispatch('toast', this.labels.common.error);
+            }).finally(() => {
+                // this.$dispatch('wait', false);
+                // resolve();
+                console.log('finally');
+
+            })
+        }).catch(()=>{
+          alert("账号不存在");
+            // this.$dispatch('toast', this.labels.common.error);
+        }).finally(() => {
+            // this.$dispatch('wait', false);
+            // resolve();
+            console.log('finally');
+        })
+      },1000);
+
     }
-  },
+  }
   // ready() {
 
   // }
