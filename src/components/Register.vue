@@ -35,12 +35,12 @@
                 </div>
                 <div class="field">
                   <div class="ui left icon large input">
-                    <input placeholder="密码" v-model="password"><i class="lock icon"></i>
+                    <input placeholder="密码" type="password" v-model="password"><i class="lock icon"></i>
                   </div>
                 </div>
                 <div class="field">
                   <div class="ui left icon large input">
-                    <input placeholder="确认密码"><i class="lock icon"></i>
+                    <input placeholder="确认密码" type="password"><i class="lock icon"></i>
                   </div>
                 </div>
                 <input type="submit" value="注册" class="ui fluid blue large button" @click="signUp"></div>

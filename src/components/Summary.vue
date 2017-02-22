@@ -58,6 +58,35 @@
                 </div> -->
             </div>
         </div>
+        <div class="ui form">
+          <div class="grouped fields">
+            <label>How often do you use checkboxes?</label>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="example2" checked="checked" tabindex="0" class="hidden">
+                <label>Once a week</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox checked">
+                <input type="radio" name="example2" tabindex="0" class="hidden">
+                <label>2-3 times a week</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="example2" tabindex="0" class="hidden">
+                <label>Once a day</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="example2" tabindex="0" class="hidden">
+                <label>Twice a day</label>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="bottom-container">
             <button class="ui blue button" @click="confirm">confirm</button>
         </div>
@@ -213,6 +242,7 @@ export default {
     }
   },
   mounted() {
+    $('.ui.checkbox').checkbox();
       this.$nextTick(function () {
         this.drawChart();
     });

@@ -23,7 +23,7 @@ import First from './components/First.vue'
 // 创建一个路由器实例
 // 并且配置路由规则
 const router = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     base: __dirname,
     routes: [{
         path: '/first',
