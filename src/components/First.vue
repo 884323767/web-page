@@ -1,8 +1,18 @@
 <template>
   <div>
     <div>echarts</div>
-    <div id="charts">
+    <div id="charts" class="firstEchart">
         <div id="main"  :style="{width:'600px',height:'400px'}"></div>
+        <div class="round-assist-center bc">
+            <div class="left-data">
+                <em class="vStock">80</em>
+                <h2>股票</h2>
+            </div>
+            <div class="right-data">
+                <em class="vBond">20</em>
+                <h2>债券</h2>
+            </div>
+        </div>
         <div id="main1" :style="{width:'600px',height:'400px'}"></div>
     </div>
   </div>
@@ -10,66 +20,42 @@
 
 <script >
 import echarts from "echarts"
+import mock from "../mock.js"
 export default{
        data (){
            return {
-               msg:"123"
+               msg:"123",
+               chartData:mock.chartData
            }
        },
        mounted (){
            var myChart = echarts.init(document.getElementById('main'));
            myChart.setOption({
-                title : {
-                    text: '某站点用户访问来源',
-                    subtext: '纯属虚构',
-                    x:'center'
-                },
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-                legend: {
-                    orient : 'vertical',
-                    x : 'left',
-                    data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {
-                            show: true,
-                            type: ['pie', 'funnel'],
-                            option: {
-                                funnel: {
-                                    x: '25%',
-                                    width: '50%',
-                                    funnelAlign: 'left',
-                                    max: 1548
-                                }
-                            }
-                        },
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                calculable : true,
-                series : [
-                    {
-                        name:'访问来源',
-                        type:'pie',
-                        radius : '55%',
-                        center: ['50%', '60%'],
-                        data:[
-                            {value:335, name:'直接访问'},
-                            {value:310, name:'邮件营销'},
-                            {value:234, name:'联盟广告'},
-                            {value:135, name:'视频广告'},
-                            {value:1548, name:'搜索引擎'}
-                        ]
-                    }
-                ]
+               tooltip: {
+                   trigger: 'item',
+                   formatter: "{b}<br/><p style='text-align: center;color: #2881ef;font-size: 16px'>{d}%</p>",
+                   backgroundColor: 'rgba(255,2552,255,0.9)',
+                   borderColor: '#b6ccdc',
+                   textStyle: {
+                       color: '#303030'
+                   },
+                   extraCssText: 'box-shadow: 0 0 5px #b6ccdc'
+               },
+               series: [
+                   {
+                       name: '投资类型',
+                       type: 'pie',
+                       clockwise:false,
+                       radius: ['60%', '85%'],
+                       label: {
+                           normal: {
+                               show: false
+                           }
+                       },
+                       selectedMode: 'multiple',
+                       data: this.chartData
+                   }
+               ]
            });
            var myChart1 = echarts.init(document.getElementById('main1'));
            myChart1.setOption({
@@ -131,4 +117,48 @@ export default{
    }
 </script>
 
-<style></style>
+<style>
+  #charts{
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  .firstEchart{
+    flex-direction: column;
+    align-items: center;
+  }
+  .round-assist-center {
+      position: absolute;
+      top: 71px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .round-assist-center .left-data, .round-assist-center .right-data {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        float: left;
+        text-align: center;
+        cursor: pointer;
+        margin:0 10px;
+      }
+      .round-assist-center:after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          z-index: 0;
+          margin-left: -0.5px;
+          margin-top: -19px;
+          display: block;
+          height: 55px;
+          width: 2px;
+          background: #666;
+      }
+</style>

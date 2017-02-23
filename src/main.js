@@ -45,7 +45,7 @@ const router = new VueRouter({
         component: register
     }, {
         path: '*',
-        redirect: '/test'
+        redirect: '/login'
     }]
 })
 

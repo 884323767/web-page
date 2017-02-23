@@ -3,10 +3,10 @@
     <div class="top-container">
       <div class="image hikers show"></div>
       <div class="header">
-          <a href="/login" class="ui blue button logo">logo</a>
+          <a href="#/login" class="ui blue button logo">logo</a>
           <div class="sign-up">
-              <a href="/register" class="ui blue button">Don't have an account?</a>
-              <a href="/register" class="ui teal button">Sign up</a>
+              <a href="#/register" class="ui blue button">Don't have an account?</a>
+              <a href="#/register" class="ui teal button">Sign up</a>
           </div>
       </div>
       <div class="main-content">
@@ -20,13 +20,13 @@
                 <p>Password</p>
                 <input type="password" v-model="password">
                 <button class="ui blue button login-button" @click="loginIn">Login in</button>
-                <a href="/test" class="forget">Forgot password?</a>
+                <a href="#/test" class="forget">Forgot password?</a>
               </div>
           </div>
           <div class="product-message">
             <div class="message">Tax season is here. <br>
               See what you can do now to get a head start. <br>
-              <a href="/test" class="learn">learn more</a>
+              <a href="#/test" class="learn">learn more</a>
             </div>
             <div class="author">
               <h4>Shawn</h4>
@@ -142,7 +142,7 @@ export default {
                 //     this.$dispatch('toast', this.labels.common.codeError);
                 // }
                 console.log(res);
-                location.href = "/portfolio";
+                location.hash = "#/summary";
 
             }).catch(()=>{
               alert("登录失败");

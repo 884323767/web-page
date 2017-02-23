@@ -2,17 +2,21 @@
     <div class="portfolio">
       <div class="menu-group">
         <div class="ui text menu">
-          <a href="./test" class="ui blue button logo">logo</a>
-          <a href="./summary" class="item active">Summary</a>
-          <a href="./transfer" class="item">Transfer</a>
-          <a href="./portfolio" class="item">Portfolio</a>
-          <a href="./performance" class="item ">Performance</a>
+          <a href="#/test" class="ui blue button logo">logo</a>
+          <a href="#/summary" class="item active">Summary</a>
+          <a href="#/transfer" class="item">Transfer</a>
+          <a href="#/portfolio" class="item">Portfolio</a>
+          <a href="#/performance" class="item ">Performance</a>
         </div>
       </div>
         <div class="title">Portfolio</div>
         <div class="main-container">
           <div class="tab-header">
-              <selection :items="items" :defaultText="defaultText" :selected="selected"></selection>
+            <div>
+             <h3 class="tab-title">Select a Portfolio</h3>
+             <selection :items="items" :defaultText="defaultText" :selected="1" @selected-change="changeType"></selection>
+
+            </div>
               <div class="label">Retirement Growth</div>
           </div>
           <ul class="balance-list">
@@ -34,7 +38,8 @@
           </ul>
           <div class="content-container">
             <div class="chart">
-              <div id="main" style="width:300px;height:300px;"></div>
+              <pie-chart v-show="pieChart"></pie-chart>
+              <line-chart v-show="!pieChart"></line-chart>
               <div class="ui inverted blue button">Adjust target allocation</div>
             </div>
             <div class="info">
@@ -45,7 +50,9 @@
                 <div class="second">Current Value</div>
               </div>
               <div class="items-container" v-for="item in portData">
-                <div class="first">{{item.name}}</div>
+                <div class="first">
+                <i class="angle right icon"></i>
+                {{item.name}}</div>
                 <div class="first ">
                   <span class="percent">{{item.percentage}}</span>
                   <div class="graph-bar" :style="{'width': item.percentage}"></div>
@@ -61,10 +68,12 @@
 
 <script>
 import selection from './widgets/Selection.vue'
+import pieChart from './widgets/PieChart.vue'
+import lineChart from './widgets/LineChart.vue'
 import echarts from "echarts"
 export default {
     components: {
-        selection
+        selection, pieChart,lineChart
     },
     route: {
         data(transition) {
@@ -118,6 +127,30 @@ export default {
                 money:"$190.87",
                 percentage:"38.5%",
                 index:3
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"8.5%",
+                index:0
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"18.5%",
+                index:1
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"28.5%",
+                index:2
+            },
+            {
+                name:"US Total Stock Market",
+                money:"$190.87",
+                percentage:"38.5%",
+                index:3
             }
           ],
           bonsData: [
@@ -145,7 +178,8 @@ export default {
                 percentage:"38.5%",
                 index:3
             }
-          ]
+          ],
+          pieChart: true
         }
     },
     computed: {
@@ -157,124 +191,15 @@ export default {
         tipsShow: function() {
             // clearTimeout(this.tipsFlag);
             // this.showTips = true;
+        },
+        changeType(val) {
+            console.log('changeType'+val)
+            this.pieChart = !this.pieChart;
         }
     },
   mounted() {
       this.$nextTick(function () {
-        var  option = {
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
-                },
-                left: 'center',
-                series: [
-                    {
-                        name:'详情',
-                        type:'pie',
-                        radius: ['55%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'center'
-                            },
-                            emphasis: {
-                                show: true,
-                                textStyle: {
-                                    fontSize: '30',
-                                    fontWeight: 'bold'
-                                }
-                            },
-                            textStyle:{
-                              color:'#fff',
-                              fontSize:12
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data:[
 
-                          {
-                            value:148,
-                             name:'港股',
-                             itemStyle: {
-                            normal: {
-                                  color: '#43547e'
-                              }
-                          }
-                        },
-                        {
-                          value:148,
-                           name:'美股',
-                           itemStyle: {
-                          normal: {
-                                color: '#27314b'
-                            }
-                        }
-                      },
-                      {
-                        value:148,
-                         name:'沪深',
-                         itemStyle: {
-                        normal: {
-                              color: '#161c2c'
-                          }
-                      }
-                    },
-                    {
-                        value:400,
-                        name:'基金',
-                        itemStyle: {
-                            normal: {
-                                color: '#7bd59d'
-                            }
-                        }
-                      },
-                      {
-                        value:310,
-                         name:'理财',
-                         itemStyle: {
-                          normal: {
-                              color: '#5ea87a'
-                          }
-                      }
-                    },
-                      {
-                        value:234,
-                         name:'P2P',
-                         itemStyle: {
-                          normal: {
-                              color: '#396b4c'
-                          }
-                      }
-                    },
-                      {
-                        value:135,
-                         name:'ETF',
-                         itemStyle: {
-                          normal: {
-                              color: '#244630'
-                          }
-                      }
-                    },
-                      {
-                        value:148,
-                         name:'Other',
-                         itemStyle: {
-                        normal: {
-                              color: '#839ee1'
-                          }
-                      }
-                    }
-                        ]
-                    }
-                ]
-                };
-        var myChart = echarts.init(document.getElementById('main'));
-       myChart.setOption(option);
     });
   }
 }
@@ -319,6 +244,13 @@ export default {
       justify-content: space-between;
       padding-bottom: 30px;
       border-bottom: 1px solid #ddd;
+      .tab-title{
+        text-align: left;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        font-size: 1rem;
+        color: #333;
+      }
       .label {
         font-size: 1.4rem;
         padding-top: 1.2rem;
@@ -378,10 +310,12 @@ export default {
       padding-top: 30px;
       .chart{
         border-top: 1px solid #ddd;
+        transform: scale(0.7);
+        margin-left: -90px;
+        margin-top: -37px;
       }
       .info{
         flex: 1;
-        padding-left: 80px;
         .first{
           flex:1.5;
           text-align: left;

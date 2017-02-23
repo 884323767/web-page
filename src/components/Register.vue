@@ -3,10 +3,10 @@
     <div class="top-container">
       <div class="image hikers show"></div>
       <div class="header">
-          <a href="/test" class="ui blue button logo">logo</a>
+          <a href="#/test" class="ui blue button logo">logo</a>
           <div class="sign-up">
-              <a href="/test" class="ui blue button">Don't have an account?</a>
-              <a href="/test" class="ui teal button">Sign up</a>
+              <a href="#/test" class="ui blue button">Don't have an account?</a>
+              <a href="#/test" class="ui teal button">Sign up</a>
           </div>
       </div>
       <div class="main-content">
@@ -20,7 +20,7 @@
                 <p>Password</p>
                 <input type="password" v-model="password">
                 <button class="ui blue button login-button" @click="signUp">注册</button>
-                <a href="/test" class="forget">Forgot password?</a>
+                <a href="#/test" class="forget">Forgot password?</a>
               </div> -->
               <div class="ui form">
                 <div class="field">
@@ -48,7 +48,7 @@
 <!--           <div class="product-message">
             <div class="message">Tax season is here. <br>
               See what you can do now to get a head start. <br>
-              <a href="/test" class="learn">learn more</a>
+              <a href="#/test" class="learn">learn more</a>
             </div>
             <div class="author">
               <h4>Shawn</h4>
@@ -155,7 +155,7 @@ export default {
             //     this.$dispatch('toast', this.labels.common.codeError);
             // }
             console.log(res);
-            location.href = "/summary";
+            location.hash = "#/login";
         }).catch(()=>{
           alert("注册失败");
             // this.$dispatch('toast', this.labels.common.error);
@@ -166,7 +166,6 @@ export default {
 
         })
       },1000);
-
     }
   },
   // ready() {

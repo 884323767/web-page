@@ -1,4 +1,5 @@
-var apiServer = "http://192.168.1.4:3000/";
+// var apiServer = "http://192.168.1.4:3000/";
+var apiServer = "https://139.224.233.25/";
 var api = {
   testBaidu: "http://messtime.top/",
   register: apiServer + "api/EmailUsers",

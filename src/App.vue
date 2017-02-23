@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <ul class="test" v-show="showTest">
-        <li><router-link to="/first">第一页</router-link></li>
+        <li><router-link to="/first">echart</router-link></li>
         <li><router-link to="/test">test</router-link></li>
         <li><router-link to="/login">login</router-link></li>
         <li><router-link to="/register">register</router-link></li>

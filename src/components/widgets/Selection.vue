@@ -26,12 +26,17 @@
         }
       },
       selected:{
-        type: String,
-        default: ''
+        type: Number,
+        default: 0
       },
       defaultText: {
         type: String,
         default: ''
+      }
+    },
+    data() {
+      return {
+        result: 0
       }
     },
     computed: {
@@ -45,6 +50,10 @@
     },
     methods: {
       changeSelection(item) {
+        var temp = $("input[type='hidden']")[0].value;
+        console.log('hidden: '+ $("input[type='hidden']")[0].value)
+              console.log('selected'+this.selected)
+        this.$emit("selected-change", temp);
         // this.selectedItem = item
         // this.selected = item.Value
       }
