@@ -3,10 +3,10 @@
     <div class="top-container">
       <div class="image hikers show"></div>
       <div class="header">
-          <a href="#/test" class="ui blue button logo">logo</a>
+          <a href="#/testTest" class="ui blue button logo">logo</a>
           <div class="sign-up">
-              <a href="#/test" class="ui blue button">Don't have an account?</a>
-              <a href="#/test" class="ui teal button">Sign up</a>
+              <a href="#/register" class="ui blue button">Don't have an account?</a>
+              <a href="#/register" class="ui teal button">Sign up</a>
           </div>
       </div>
       <div class="main-content">
@@ -20,12 +20,12 @@
                 <p>Password</p>
                 <input type="password" v-model="password">
                 <button class="ui blue button login-button" @click="signUp">注册</button>
-                <a href="#/test" class="forget">Forgot password?</a>
+                <a href="#/testTest" class="forget">Forgot password?</a>
               </div> -->
               <div class="ui form">
                 <div class="field">
                   <div class="ui left icon large input">
-                    <input placeholder="名称" type="text"><i class="user icon"></i>
+                    <input placeholder="名称" type="text" v-model="name"><i class="user icon"></i>
                   </div>
                 </div>
                 <div class="field">
@@ -33,44 +33,28 @@
                     <input placeholder="邮箱" type="text" v-model="email"><i class="mail icon"></i>
                   </div>
                 </div>
-                <div class="field">
+                <div class="field" :class="{'error':error}">
                   <div class="ui left icon large input">
                     <input placeholder="密码" type="password" v-model="password"><i class="lock icon"></i>
                   </div>
                 </div>
-                <div class="field">
+                <div class="field" :class="{'error':error}">
                   <div class="ui left icon large input">
-                    <input placeholder="确认密码" type="password"><i class="lock icon"></i>
+                    <input placeholder="确认密码" type="password" v-model="passwordConfirm"><i class="lock icon"></i>
                   </div>
                 </div>
-                <input type="submit" value="注册" class="ui fluid blue large button" @click="signUp"></div>
+                <button class="ui blue button login-button" :class="{'loading disabled': loading,'disabled': !formReady}" @click="signUp">注册</button>
           </div>
 <!--           <div class="product-message">
             <div class="message">Tax season is here. <br>
               See what you can do now to get a head start. <br>
-              <a href="#/test" class="learn">learn more</a>
+              <a href="#/testTest" class="learn">learn more</a>
             </div>
             <div class="author">
               <h4>Shawn</h4>
               <h4>Customer Experience Manager</h4>
             </div>
           </div> -->
-        </div>
-      </div>
-    </div>
-    <div class="recent-articles">
-      <div class="title">Here's the latest from the Resource Center:</div>
-      <div class="ui grid">
-        <div class="three column row">
-          <div class="column image-link">
-            <i class="image first"></i>The Fiduciary Rule Is on Life Support – We Must Act Now
-          </div>
-          <div class="column image-link">
-            <i class="image second"></i>Ep. 007: Fiduciary Rule with Jon Stein
-          </div>
-          <div class="column image-link">
-            <i class="image third"></i>Ep. 006: Kids and Financial Literacy with Beth Kobliner
-          </div>
         </div>
       </div>
     </div>
@@ -108,13 +92,20 @@ export default {
   data() {
     return {
       action: "注册",
+      name: "",
       email: "",
-      password: ""
+      password: "",
+      passwordConfirm: "",
+      loading: false,
+      error: false
     }
   },
   computed: {
     validUser() {
       return new Date();
+    },
+    formReady() {
+        return this.email && this.password && this.passwordConfirm && this.name;
     }
   },
   methods: {
@@ -125,6 +116,17 @@ export default {
     signUp: function() {
       console.log(this.email);
       console.log(this.password);
+      if(!this.email  || !this.password){
+        alert("请输入邮箱密码");
+        return;
+      }
+      if(this.passwordConfirm !== this.password){
+        alert("两次密码不一致");
+        this.error = true;
+        return;
+      }
+      this.error = false;
+      this.loading = true;
       var data = {
         email: this.email,
         password: this.password
@@ -162,10 +164,11 @@ export default {
         }).finally(() => {
             // this.$dispatch('wait', false);
             // resolve();
+            this.loading = false;
             console.log('finally');
 
         })
-      },1000);
+      }, 200);
     }
   },
   // ready() {

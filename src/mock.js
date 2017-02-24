@@ -315,6 +315,6 @@ export default {
                 "color": "#064890"
               }
             }
-          }]
+          }],
 
 }

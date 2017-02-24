@@ -2,7 +2,7 @@
   <div class="summary" :class="{'fullscreen': !scrollable}">
     <div class="menu-group">
       <div class="ui text menu">
-        <a href="#/test" class="ui blue button logo">logo</a>
+        <a href="#/login" class="ui blue button logo">logo</a>
         <a href="#/summary" class="item active">Summary</a>
         <a href="#/transfer" class="item">Transfer</a>
         <a href="#/portfolio" class="item">Portfolio</a>
@@ -60,8 +60,7 @@
         </div>
       </div>
     </div>
-
-    <div class="select-container" v-show="selectAccount">
+    <div class="select-container animated fadeInDown" v-show="selectAccount">
         <!-- <div class="top-container"> -->
 <!--             <i class="icon close" @click="close"></i>
  --><!--             <div class="label">Select an account type</div>
@@ -206,15 +205,15 @@ export default {
     },
     addAccountItem(item) {
     var type= this.selectType;
-     var  data = Math.random()*1000;
-     var percent = (data/(335+310+234+135)*100).toFixed();
+     var  data = Math.random()*2000;
+     var percent = (data/(335+310+234+135+data)*100).toFixed();
 
       this.accountData.push({
         type: type,
         money:'$'+ data.toFixed(2),
         percent: percent+'%'});
       this.$nextTick(function () {
-          this.drawChart(type, data);
+          this.drawChart(data);
       });
     },
     drawChart(data) {
@@ -261,11 +260,11 @@ export default {
                }
            ]
        };
-      if(data){
-          option.series[0].data[4].value = data;
-        }
        var mainDom = $('.main');
        for(var i=0;i<mainDom.length;i++){
+        if(data&& i == mainDom.length - 1){
+            option.series[0].data[4].value = data;
+          }
           var myChart = echarts.init(mainDom[i]);
           myChart.setOption(option);
        }
@@ -465,8 +464,13 @@ export default {
         .ui.radio.checkbox input:checked~label:after {
           background-color:#1678c2;
         }
+        .ui.radio.checkbox{
+          label{
+            color: #555;
+            font-size: 1.5rem;
+          }
+        }
       }
-
       .top-container {
           height: 30px;
           text-align: center;

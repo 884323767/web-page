@@ -19,14 +19,14 @@
                 <input type="text" v-model="email">
                 <p>Password</p>
                 <input type="password" v-model="password">
-                <button class="ui blue button login-button" @click="loginIn">Login in</button>
-                <a href="#/test" class="forget">Forgot password?</a>
+                <button class="ui blue button login-button" :class="{'loading disabled': loading,'disabled': !formReady}" @click="loginIn">Login in</button>
+                <a href="#/reset" class="forget">Forgot password?</a>
               </div>
           </div>
           <div class="product-message">
             <div class="message">Tax season is here. <br>
               See what you can do now to get a head start. <br>
-              <a href="#/test" class="learn">learn more</a>
+              <a href="#/learn" class="learn">learn more</a>
             </div>
             <div class="author">
               <h4>Shawn</h4>
@@ -87,12 +87,13 @@ export default {
     return {
       action: "登录",
       email: "",
-      password: ""
+      password: "",
+      loading: false
     }
   },
   computed: {
-    validUser() {
-      return new Date();
+    formReady() {
+        return this.email && this.password;
     }
   },
   methods: {
@@ -103,6 +104,7 @@ export default {
     loginIn: function() {
       console.log(this.email);
       console.log(this.password);
+      this.loading = true;
       var data = {
         where : {
           email: this.email
@@ -150,6 +152,7 @@ export default {
             }).finally(() => {
                 // this.$dispatch('wait', false);
                 // resolve();
+                this.loading = false;
                 console.log('finally');
 
             })
@@ -159,9 +162,11 @@ export default {
         }).finally(() => {
             // this.$dispatch('wait', false);
             // resolve();
+            this.loading = false;
+
             console.log('finally');
         })
-      },1000);
+      },200);
 
     }
   }

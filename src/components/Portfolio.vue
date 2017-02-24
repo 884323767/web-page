@@ -2,7 +2,7 @@
     <div class="portfolio">
       <div class="menu-group">
         <div class="ui text menu">
-          <a href="#/test" class="ui blue button logo">logo</a>
+          <a href="#/logo" class="ui blue button logo">logo</a>
           <a href="#/summary" class="item active">Summary</a>
           <a href="#/transfer" class="item">Transfer</a>
           <a href="#/portfolio" class="item">Portfolio</a>
@@ -49,8 +49,8 @@
                 <div class="second">Fund Fees per Year</div>
                 <div class="second">Current Value</div>
               </div>
-              <div class="items-container" v-for="item in portData">
-                <div class="first">
+              <div class="items-container ui animated list" v-for="item in portData">
+                <div class="item first">
                 <i class="angle right icon"></i>
                 {{item.name}}</div>
                 <div class="first ">
@@ -105,49 +105,49 @@ export default {
           ],
           portData: [
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"8.5%",
                 index:0
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"18.5%",
                 index:1
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"28.5%",
                 index:2
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"38.5%",
                 index:3
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"8.5%",
                 index:0
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"18.5%",
                 index:1
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"28.5%",
                 index:2
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"38.5%",
                 index:3
@@ -155,25 +155,25 @@ export default {
           ],
           bonsData: [
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"8.5%",
                 index:0
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"18.5%",
                 index:1
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"28.5%",
                 index:2
             },
             {
-                name:"US Total Stock Market",
+                name:"US Total Stock",
                 money:"$190.87",
                 percentage:"38.5%",
                 index:3
@@ -343,6 +343,10 @@ export default {
           padding-top: 10px;
           padding-bottom: 10px;
           border-bottom: 1px solid #ddd;
+          .first{
+            width: 100px;
+            flex: auto;
+          }
           .percent {
             min-width: 3rem;
             display: inline-block;

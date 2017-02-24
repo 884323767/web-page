@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>echarts</div>
-    <div id="charts" class="firstEchart">
-        <div id="main"  :style="{width:'600px',height:'400px'}"></div>
+    <div id="charts-first" class="firstEchart">
+        <div id="main-first"  :style="{width:'600px',height:'400px'}"></div>
         <div class="round-assist-center bc">
             <div class="left-data">
                 <em class="vStock">80</em>
@@ -13,7 +13,7 @@
                 <h2>债券</h2>
             </div>
         </div>
-        <div id="main1" :style="{width:'600px',height:'400px'}"></div>
+        <div id="main-first1" :style="{width:'600px',height:'400px'}"></div>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default{
            }
        },
        mounted (){
-           var myChart = echarts.init(document.getElementById('main'));
+           var myChart = echarts.init(document.getElementById('main-first'));
            myChart.setOption({
                tooltip: {
                    trigger: 'item',
@@ -57,7 +57,7 @@ export default{
                    }
                ]
            });
-           var myChart1 = echarts.init(document.getElementById('main1'));
+           var myChart1 = echarts.init(document.getElementById('main-first1'));
            myChart1.setOption({
                 legend: {
                     data:['not inflation adjusted']
@@ -118,7 +118,7 @@ export default{
 </script>
 
 <style>
-  #charts{
+  #charts-first{
     display: flex;
     justify-content: center;
     position: relative;
@@ -129,6 +129,8 @@ export default{
   }
   .round-assist-center {
       position: absolute;
+      left: 50%;
+      transform: translate(-50%);
       top: 71px;
       width: 250px;
       height: 250px;

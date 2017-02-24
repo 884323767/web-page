@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from "vue-router";
 import VueResource from 'vue-resource'
-
 // import $ from 'jquery'
 // import semantic from 'semantic'
 //开启debug模式
@@ -17,7 +16,10 @@ import portfolio from './components/Portfolio.vue'
 import summary from './components/Summary.vue'
 import register from './components/Register.vue'
 import test from './components/test.vue'
-import First from './components/First.vue'
+import First from './components/First.vue';
+import Interface from './components/Interface.vue'
+import transfer from './components/transfer.vue'
+import reset from './components/Reset.vue'
 // import './sass/resetCss.scss'
 
 // 创建一个路由器实例
@@ -44,9 +46,16 @@ const router = new VueRouter({
         path: '/register',
         component: register
     }, {
+        path: '/reset',
+        component: reset
+    }, {
+      path: '/interface',
+      component: Interface
+    }, {
         path: '*',
         redirect: '/login'
     }]
+
 })
 
 // 现在我们可以启动应用了！

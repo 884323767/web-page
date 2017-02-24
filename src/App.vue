@@ -7,6 +7,7 @@
         <li><router-link to="/register">register</router-link></li>
         <li><router-link to="/summary">summary</router-link></li>
         <li><router-link to="/portfolio">portfolio</router-link></li>
+        <li><router-link to="/interface">interface</router-link></li>
         <li><button class="ui blue button logo" @click="hideTest">Hide</button></li>
     </ul>
     <router-view class="view"></router-view>
