@@ -39,6 +39,9 @@ module.exports = {
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!postcss-loader!sass-loader' })
         },{
+          test: /\.less$/,
+          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!postcss-loader!less-loader' })
+        },{
             test: /\.(png|jpg|gif|svg)$/,
             loader: 'file-loader',
             options: {

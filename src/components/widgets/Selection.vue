@@ -66,4 +66,8 @@
   }
 </script>
 
-<style></style>
+<style lang="scss">
+  .semantic-component{
+
+  }
+</style>

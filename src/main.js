@@ -20,6 +20,7 @@ import First from './components/First.vue';
 import Interface from './components/Interface.vue'
 import transfer from './components/transfer.vue'
 import reset from './components/Reset.vue'
+import performance from './components/Performance.vue'
 // import './sass/resetCss.scss'
 
 // 创建一个路由器实例
@@ -51,6 +52,9 @@ const router = new VueRouter({
     }, {
       path: '/interface',
       component: Interface
+    }, {
+      path: '/performance',
+      component: performance
     }, {
         path: '*',
         redirect: '/login'

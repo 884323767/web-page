@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="line-chart">
     <div id="charts">
         <div id="main3"  :style="{width:'600px',height:'400px'}"></div>
     </div>
@@ -206,8 +206,10 @@ export default{
 </script>
 
 <style>
+.line-chart{
   #charts{
     width: 100%;
     text-align: center;
   }
+}
 </style>

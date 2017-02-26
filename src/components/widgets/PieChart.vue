@@ -1,4 +1,5 @@
 <template>
+<div class="pie-chart">
   <div id="charts" class="firstEchart">
       <div id="main"  :style="{'width': width,'height':height}"></div>
       <div class="round-assist-center bc">
@@ -12,6 +13,7 @@
           </div>
       </div>
   </div>
+</div>
 </template>
 
 <script >
@@ -68,6 +70,7 @@ export default{
 </script>
 
 <style lang="scss" scope>
+.pie-chart{
   #charts{
     display: flex;
     justify-content: center;
@@ -107,4 +110,5 @@ export default{
           width: 2px;
           background: #666;
       }
+    }
 </style>
