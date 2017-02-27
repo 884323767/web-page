@@ -21,9 +21,15 @@
             <div>
              <h3 class="tab-title">Portfolios</h3>
              <selection :items="items" :defaultText="defaultText" :selected="1" @selected-change="changeType"></selection>
-             <calendar :show.sync="show" :value.sync="value" :x="x" :y="y" :begin="begin" :end="end" :range="range"></calendar>
             </div>
-              <div class="label">Retirement Growth</div>
+            <div>
+             <h3 class="tab-title">Portfolios</h3>
+             <calendar :value="value" :disabled-days-of-week="disabled" :format="format" :clear-button="clear" :placeholder="placeholder" ></calendar>
+            </div>
+            <div>
+              <h3 class="tab-title">Portfolios</h3>
+             <calendar :value="value" :disabled-days-of-week="disabled" :format="format" :clear-button="clear" :placeholder="placeholder" ></calendar>
+            </div>
           </div>
           <ul class="balance-list">
             <li class="items">
@@ -76,7 +82,7 @@
 import selection from './widgets/Selection.vue'
 import pieChart from './widgets/PieChart.vue'
 import lineChart from './widgets/LineChart.vue'
-import calendar from '../vendor/calendar/calendar.vue'
+import calendar from './widgets/Calendar.vue'
 import echarts from "echarts"
 export default {
     components: {
@@ -90,14 +96,11 @@ export default {
     data() {
         return {
           active: true,
-          show:true,
-          type:"date", //date datetime
-          value:"2015-12-11",
-          begin:"2015-12-20",
-          end:"2015-12-25",
-          x:100,
-          y:100,
-          range:true,//是否多选
+          disabled: [],
+          value: '2015-06-10',
+          format: 'yyyy-MM-dd',
+          clear: false,
+          placeholder: 'placeholder is displayed when value is null or empty',
           items: [
             {name: 'Traditional IRA', Value: 0},
             {name: 'Retirement 2', Value: 1},

@@ -1,16 +1,28 @@
 var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     plugins: [
-      new ExtractTextPlugin('/[name].css')
+      new ExtractTextPlugin('/[name].css'),
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        //hash: true,
+        template: 'index.html',
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true
+          // more options:
+          // https://github.com/kangax/html-minifier#options-quick-reference
+        }
+      })
     ],
     entry: './src/main.js',
     output: {
         path: path.resolve(__dirname, './dist'),
         // publicPath: './dist/',
-        publicPath: '/dist/',
+        // publicPath: '/dist/',
         filename: 'build.js'
     },
     module: {
@@ -70,7 +82,8 @@ module.exports = {
 
 if (process.env.NODE_ENV === 'production') {
     module.exports.devtool = '#source-map'
-    module.exports.output.publicPath = './dist/'
+    module.exports.devtool = false
+    module.exports.output.publicPath = './'
         // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
