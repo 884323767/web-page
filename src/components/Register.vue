@@ -44,7 +44,8 @@
                   </div>
                 </div>
                 <button class="ui blue button login-button" :class="{'loading disabled': loading,'disabled': !formReady}" @click="signUp">注册</button>
-          </div>
+              </div>
+            </div>
 <!--           <div class="product-message">
             <div class="message">Tax season is here. <br>
               See what you can do now to get a head start. <br>
@@ -73,7 +74,7 @@
         </div>
       </div>
     </div>
-  <div>
+  </div>
 </template>
 
 <script>

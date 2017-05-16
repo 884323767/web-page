@@ -9,7 +9,7 @@
         <a href="#/performance" class="item ">Performance</a>
       </div>
     </div>
-  <div>
+  </div>
 </template>
 
 <script>

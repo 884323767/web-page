@@ -23,7 +23,7 @@
                 <a href="#/reset" class="forget">Forgot password?</a>
               </div>
           </div>
-          <div class="product-message">
+          <div class="product-message" v-if="false">
             <div class="message">Tax season is here. <br>
               See what you can do now to get a head start. <br>
               <a href="#/learn" class="learn">learn more</a>
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
-  <div>
+  </div>
 </template>
 
 <script>
